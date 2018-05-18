@@ -74,27 +74,36 @@
     // create answer array
     var answerArray = [];
     for (var i = 0; i < currentTitle.length; i++) {
-        answerArray[i] !== " ";
-        answerArray[i] = " _ "; 
+        // answerArray[i] = "_"; 
+        if (i === " ") {
+            answerArray[i] = " ";
+        } else {
+            answerArray[i] = "_";
+        }
     }
 
-    var remainingGuesses = currentTitle.length;
-
 // function run when user starts guessing
-document.onkeydown = function(event) {
+document.onkeyup = function(event) {
     // determines guess
     var userGuess = event.key;
     // print answer array to html
-    document.getElementById("answerArray").innerHTML = answerArray;
+    if (answerArray[i] !== "space") {
+        document.getElementById("answerArray").innerHTML = answerArray.join("");
+    }
     // change answer array to guess
     for (var g = 0; g < currentTitle.length; g++) {
         if (userGuess.toUpperCase()  === currentTitle[g]) {
             answerArray[g] = userGuess.toUpperCase();
-        }   
+        // } else {
+        //     document.getElementById("guesses").innerHTML += userGuess.toUpperCase;
+        }  
     }
     // display guessed letters
-    var guessedLetters = userGuess 
-    document.getElementById("guesses").innerHTML = userGuess;
+    var guessedLetters =  
+    document.getElementById("guesses").innerHTML += userGuess.toUpperCase();
+    if (guessedLetters.length === 10) {
+        document.getElementById("guesses").innerHTML = "SORRY YOU LOSE";
+    }
     
 }
 
