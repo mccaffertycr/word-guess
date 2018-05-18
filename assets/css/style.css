@@ -1,0 +1,48 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    background-size: fill;
+    font-size: 12;
+    font-family: 'Press Start 2P';
+    text-align: center;
+    width: 100%;
+}
+
+#header-container {
+    background: black;
+    color: white;
+    border:5px dashed white; 
+    margin: 25px auto;
+    width: 40%;
+    height: 100px;
+}
+
+header #logo {
+    font-size: 30px;
+    width: 100%;
+    text-align: center;
+}
+
+#anykey {
+    text-align: center;
+}
+
+#logo {
+
+}
+
+#game-container {
+    background: black;
+    color: white;
+    border: 5px dashed white;
+    width: 70%;
+    height: 650px;
+    margin: 0 auto;
+}
+
+#answerArray {
+    text-decoration: none;
+    text-decoration-style: none;
+}
