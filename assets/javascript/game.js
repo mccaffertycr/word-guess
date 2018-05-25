@@ -21,6 +21,16 @@
     // pick a random title               
     var currentTitle = titles[Math.floor(Math.random()*titles.length)];
 
+    // function to get hint 
+    // function getHint() {
+    //     for (var i = 0; i < this.titles.length; i++)
+    //     while (currentTitle === titles[i]) {
+    //         document.getElementById("hint").addEventListener("click", function() {
+    //             document.getElementById("hints").innerHTML = hints[i];
+    //         });
+    // }
+    // }
+
     // connect button with relevant hint
     if (currentTitle === titles[0]) {
         document.getElementById("hint").addEventListener("click", function() {
@@ -73,38 +83,34 @@
     } 
     // create answer array
     var answerArray = [];
-    for (var i = 0; i < currentTitle.length; i++) {
-        // answerArray[i] = "_"; 
-        if (i === " ") {
-            answerArray[i] = " ";
-        } else {
+    for (var i = 0; i < currentTitle.length; i++) { 
+        if (i !== " ") {       
             answerArray[i] = "_";
         }
     }
 
-// function run when user starts guessing
-document.onkeyup = function(event) {
+    // function run when user starts guessing
+    document.onkeyup = function(event) {
+
     // determines guess
     var userGuess = event.key;
     // print answer array to html
-    if (answerArray[i] !== "space") {
-        document.getElementById("answerArray").innerHTML = answerArray.join("");
-    }
+    document.getElementById("answerArray").innerHTML = answerArray.join("");
+     
     // change answer array to guess
     for (var g = 0; g < currentTitle.length; g++) {
         if (userGuess.toUpperCase()  === currentTitle[g]) {
             answerArray[g] = userGuess.toUpperCase();
         // } else {
-        //     document.getElementById("guesses").innerHTML += userGuess.toUpperCase;
+        //     document.getElementById("guesses").innerHTML += userGuess.toUpperCase();
         }  
     }
     // display guessed letters
-    var guessedLetters =  
-    document.getElementById("guesses").innerHTML += userGuess.toUpperCase();
-    if (guessedLetters.length === 10) {
-        document.getElementById("guesses").innerHTML = "SORRY YOU LOSE";
+    var guessedLetters = document.getElementById("guesses").textContent += userGuess.toUpperCase();
+    if (guessedLetters.length === 20) {
+        document.location.reload();
     }
-    
+
 }
 
 
