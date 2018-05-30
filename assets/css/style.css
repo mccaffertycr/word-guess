@@ -51,6 +51,11 @@ section {
     height: 45%;
 }
 
+#counter {
+    padding-top: 50px;
+    margin: auto auto;
+}
+
 #content1 p {
     padding-top: 20px;
 }

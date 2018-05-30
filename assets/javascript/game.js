@@ -88,9 +88,11 @@
             answerArray[i] = "_";
         }
     }
+    // guess counter
+    var guessCounter = 20;
 
-    // function run when user starts guessing
-    document.onkeyup = function(event) {
+// function run when user starts guessing
+document.onkeyup = function(event) {
 
     // determines guess
     var userGuess = event.key;
@@ -111,6 +113,7 @@
         document.location.reload();
     }
 
+    document.getElementById("counter").textContent = "GUESSES LEFT:" + (guessCounter - guessedLetters.length);
 }
 
 
