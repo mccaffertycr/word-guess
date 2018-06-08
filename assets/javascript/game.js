@@ -36,7 +36,7 @@
     // empty guess var
     var userGuess = "";
 
-    var gameOver;
+    var winTimeout;
 
     // connect button with relevant hint
     document.getElementById("hint").addEventListener("click", function() {
@@ -57,13 +57,21 @@
             }
         }
     }
+    // win message function
+
+    function winMsg() {
+        document.getElementById("answerArray").innerHTML = "YOU WIN!!";
+    }
 
 
-// function to start and restart game
+// function to start game
 function startGame() {   
 
     // clears the hint
     document.getElementById("hints").innerHTML = "";
+
+    //clears win timeout
+    clearTimeout(winTimeout);
 
     // pick a random title               
     currentTitle = titles[Math.floor(Math.random()*titles.length)];
@@ -116,7 +124,12 @@ document.onkeyup = function(e) {
     if (guessedLetters.length === 20) {
         startGame();
     } else if (answerArray.join("") === currentTitle) {
-        startGame();
+        winTimeout = setTimeout(function() {
+            winMsg();  
+        }, 2000);
+        setTimeout(function() {
+            startGame();
+        }, 5000);
     }
 };
 
