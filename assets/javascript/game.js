@@ -19,102 +19,115 @@
                 "A gunfighting stranger comes to the small settlement of Lago and is hired to bring the townsfolk together in an attempt to hold off three outlaws who are on their way."];
 
     // pick a random title               
-    var currentTitle = titles[Math.floor(Math.random()*titles.length)];
+    var currentTitle = "";
 
-    // function to get hint 
-    // function getHint() {
-    //     for (var i = 0; i < this.titles.length; i++)
-    //     while (currentTitle === titles[i]) {
-    //         document.getElementById("hint").addEventListener("click", function() {
-    //             document.getElementById("hints").innerHTML = hints[i];
-    //         });
-    // }
-    // }
-
-    // connect button with relevant hint
-    if (currentTitle === titles[0]) {
-        document.getElementById("hint").addEventListener("click", function() {
-            document.getElementById("hints").innerHTML = hints[0];
-        });
-    } else if (currentTitle === titles[1]) {
-        document.getElementById("hint").addEventListener("click", function() {
-            document.getElementById("hints").innerHTML = hints[1];
-        });
-    } else if (currentTitle === titles[2]) {
-        document.getElementById("hint").addEventListener("click", function() {
-            document.getElementById("hints").innerHTML = hints[2];
-        });
-    } else if (currentTitle === titles[3]) {
-        document.getElementById("hint").addEventListener("click", function() {
-            document.getElementById("hints").innerHTML = hints[3];
-        });
-    } else if (currentTitle === titles[4]) {
-        document.getElementById("hint").addEventListener("click", function() {
-            document.getElementById("hints").innerHTML = hints[4];
-        });
-    } else if (currentTitle === titles[5]) {
-        document.getElementById("hint").addEventListener("click", function() {
-            document.getElementById("hints").innerHTML = hints[5];
-        });
-    } else if (currentTitle === titles[6]) {
-        document.getElementById("hint").addEventListener("click", function() {
-            document.getElementById("hints").innerHTML = hints[6];
-        });
-    } else if (currentTitle === titles[7]) {
-        document.getElementById("hint").addEventListener("click", function() {
-            document.getElementById("hints").innerHTML = hints[7];
-        });
-    } else if (currentTitle === titles[8]) {
-        document.getElementById("hint").addEventListener("click", function() {
-            document.getElementById("hints").innerHTML = hints[8];
-        });
-    } else if (currentTitle === titles[9]) {
-        document.getElementById("hint").addEventListener("click", function() {
-            document.getElementById("hints").innerHTML = hints[9];
-        });
-    } else if (currentTitle === titles[10]) {
-        document.getElementById("hint").addEventListener("click", function() {
-            document.getElementById("hints").innerHTML = hints[10];
-        });
-    } else if (currentTitle === titles[11]) {
-        document.getElementById("hint").addEventListener("click", function() {
-            document.getElementById("hints").innerHTML = hints[11];
-        });
-    } 
     // create answer array
     var answerArray = [];
-    for (var i = 0; i < currentTitle.length; i++) { 
-        if (i !== " ") {       
-            answerArray[i] = "_";
-        }
-    }
+
     // guess counter
     var guessCounter = 20;
 
-// function run when user starts guessing
-document.onkeyup = function(event) {
+    // guessed letters
+    var guessedLetters = "";
 
-    // determines guess
-    var userGuess = event.key;
+    //guess display 
+    var guessDisplay = [];
+
+    // empty guess var
+    var userGuess = "";
+
+    var gameOver;
+
+    // connect button with relevant hint
+    document.getElementById("hint").addEventListener("click", function() {
+        for (var i = 0; i < titles.length; i++) {
+            if (currentTitle === titles[i]) {
+                document.getElementById("hints").innerHTML = hints[i];
+            }
+        }
+    });
+
+    // function that changes answerarray to underscores & prints
+    function answerBlank(a) {
+        for (var i = 0; i < currentTitle.length; i++) {
+            if (currentTitle[i] === " ") {
+                a[i] = " ";
+            } else {
+                a[i] = "_";
+            }
+        }
+    }
+    // function to change the underscore to the answer
+    // function matcher(a, b) {
+    //     for (var i = 0; i < currentTitle.length; i++) {
+    //         if (b.toUpperCase() === currentTitle[i]) {
+    //             a[i] = b.toUpperCase();
+    //         }
+    //     }
+    // }
+
+// function to start and restart game
+function startGame() {   
+
+    // clears the hint
+    document.getElementById("hints").innerHTML = "";
+
+    // pick a random title               
+    currentTitle = titles[Math.floor(Math.random()*titles.length)];
+
+    //reset answerArray to empty
+    answerArray = [];
+    
+    // fills answer array with underscores 
+    answerBlank(answerArray);
+
     // print answer array to html
     document.getElementById("answerArray").innerHTML = answerArray.join("");
-     
-    // change answer array to guess
-    for (var g = 0; g < currentTitle.length; g++) {
-        if (userGuess.toUpperCase()  === currentTitle[g]) {
-            answerArray[g] = userGuess.toUpperCase();
-        // } else {
-        //     document.getElementById("guesses").innerHTML += userGuess.toUpperCase();
-        }  
-    }
-    // display guessed letters
-    var guessedLetters = document.getElementById("guesses").textContent += userGuess.toUpperCase();
-    if (guessedLetters.length === 20) {
-        document.location.reload();
-    }
 
-    document.getElementById("counter").textContent = "GUESSES LEFT:" + (guessCounter - guessedLetters.length);
+    // reset guesses
+    guessCounter = 20;
+
+    guessedLetters = [];
+
+     // Prints the blanks at the beginning of each round in the HTML.
+    document.getElementById("guesses").innerHTML = guessedLetters.join(" ");
 }
+
+// starts game
+startGame();
+
+// function run when user starts guessing
+document.onkeyup = function(e) {
+
+    // determines guess
+    userGuess = e.key;
+     
+    // change answer array to reflect guess if it's correct
+    for (var g = 0; g < currentTitle.length; g++) {
+        if (userGuess.toUpperCase() === currentTitle[g]) {
+            answerArray[g] = userGuess.toUpperCase();
+        }
+    } 
+    // re-print answer array with answerto html
+    document.getElementById("answerArray").innerHTML = answerArray.join("");
+
+    // save guesses to guessLetters
+    guessedLetters.push(userGuess.toUpperCase());
+    // display guessed letters
+    guessDisplay = document.getElementById("guesses").textContent += userGuess.toUpperCase();
+
+    // guess counter display
+    document.getElementById("counter").textContent = "GUESSES LEFT:" + (guessCounter--);
+
+    // restart function conditions
+    if (guessedLetters.length === 20) {
+        startGame();
+    }
+    if (answerArray === currentTitle) {
+        startGame();
+    }
+};
+
 
 
 
