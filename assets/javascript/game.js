@@ -57,14 +57,7 @@
             }
         }
     }
-    // function to change the underscore to the answer
-    // function matcher(a, b) {
-    //     for (var i = 0; i < currentTitle.length; i++) {
-    //         if (b.toUpperCase() === currentTitle[i]) {
-    //             a[i] = b.toUpperCase();
-    //         }
-    //     }
-    // }
+
 
 // function to start and restart game
 function startGame() {   
@@ -122,8 +115,7 @@ document.onkeyup = function(e) {
     // restart function conditions
     if (guessedLetters.length === 20) {
         startGame();
-    }
-    if (answerArray === currentTitle) {
+    } else if (answerArray.join("") === currentTitle) {
         startGame();
     }
 };
