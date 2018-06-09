@@ -36,6 +36,8 @@
     // empty guess var
     var userGuess = "";
 
+    var gameOver;
+
     var winTimeout;
 
     // connect button with relevant hint
@@ -58,14 +60,15 @@
         }
     }
     // win message function
-
     function winMsg() {
         document.getElementById("answerArray").innerHTML = "YOU WIN!!";
     }
 
 
 // function to start game
-function startGame() {   
+function startGame() {  
+    
+    gameOver = false;
 
     // clears the hint
     document.getElementById("hints").innerHTML = "";
@@ -100,6 +103,7 @@ startGame();
 // function run when user starts guessing
 document.onkeyup = function(e) {
 
+    if (!gameOver) {
     // determines guess
     userGuess = e.key;
      
@@ -119,11 +123,14 @@ document.onkeyup = function(e) {
 
     // guess counter display
     document.getElementById("counter").textContent = "GUESSES LEFT:" + (guessCounter--);
+}
 
     // restart function conditions
     if (guessedLetters.length === 20) {
+        gameOver = true;
         startGame();
     } else if (answerArray.join("") === currentTitle) {
+        gameOver = true;
         winTimeout = setTimeout(function() {
             winMsg();  
         }, 2000);
